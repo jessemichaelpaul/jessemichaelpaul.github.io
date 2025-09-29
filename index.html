@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jesse Paul - Computational Mathematics</title>
+    <style>
+        :root {
+            --primary-color: #0e6e55;
+            --accent-color: #a16f0b;
+            --text-dark: #2c3e50;
+            --bg-light: #f8f9fa;
+            --border-light: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Charter', 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: white;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0a5240 100%);
+            color: white;
+            padding: 3rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .contact-info a:hover {
+            opacity: 1;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            padding: 1rem 0;
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        /* Research Areas */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .research-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .research-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .research-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        /* Publications */
+        .publication {
+            background: white;
+            border: 1px solid var(--border-light);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            transition: box-shadow 0.3s;
+        }
+
+        .publication:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .publication-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .publication-authors {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-venue {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .publication-status {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Teaching */
+        .teaching-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .teaching-list li {
+            background: var(--bg-light);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .teaching-list .course-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .teaching-list .course-term {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--border-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--border-light);
+        }
+
+        .timeline-date {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav, footer {
+                display: none;
+            }
+            
+            header {
+                background: none;
+                color: black;
+                padding: 1rem 0;
+            }
+            
+            .contact-info a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Jesse Paul</h1>
+            <div class="subtitle">PhD Candidate in Computational Mathematics</div>
+            <div class="subtitle">University of North Carolina at Greensboro</div>
+            <div class="contact-info">
+                <a href="mailto:jmpaul@uncg.edu">📧 jmpaul@uncg.edu</a>
+                <a href="tel:434-260-4115">📱 434-260-4115</a>
+                <a href="#" onclick="alert('GitHub link will be added after setup')">💻 GitHub</a>
+                <a href="#" onclick="alert('Add your ORCID here')">🔗 ORCID</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#teaching">Teaching</a></li>
+            <li><a href="#software">Software</a></li>
+            <li><a href="#errata">Errata</a></li>
+            <li><a href="#cv">CV</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        I am a PhD candidate in Computational Mathematics at the University of North Carolina at Greensboro, 
+                        expecting to graduate in Summer 2026. My research focuses on developing novel numerical methods for 
+                        approximating viscosity solutions to fully nonlinear elliptic partial differential equations.
+                    </p>
+                    <p style="margin-top: 1rem; font-size: 1.1rem; line-height: 1.8;">
+                        My dissertation focuses on developing a <strong>narrow stencil vanishing moment method</strong> for 
+                        approximating viscosity solutions to the fully nonlinear Monge-Ampère equation, achieving second-order 
+                        accuracy with a novel 17-point finite difference scheme.
+                    </p>
+                    <p style="margin-top: 1rem; font-size: 1.1rem; line-height: 1.8;">
+                        In addition to my dissertation, I have two ongoing research projects in representation theory: 
+                        a <strong>probability-one homotopy method</strong> using the trivial projector onto E^G (implemented in Julia), 
+                        and an <strong>Isotypic Finite Element Method (IFEM)</strong> with symmetry-aware assembly (implemented in MATLAB). 
+                        These projects share my focus on fully nonlinear PDEs but are separate from my thesis work.
+                    </p>
+                    <p style="margin-top: 1rem; font-size: 1.1rem; line-height: 1.8;">
+                        Beyond my primary research, I maintain interdisciplinary interests, including work in microhistory 
+                        examining the intellectual origins of Plato's Philosopher Kings through the lens of the Pythagorean 
+                        mathematician Archytas.
+                    </p>
+                </div>
+                <div style="flex: 0 0 250px; text-align: center;">
+                    <!-- Profile Photo Placeholder -->
+                    <div style="width: 250px; height: 250px; background: var(--bg-light); border: 2px solid var(--border-light); 
+                                border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                        <img id="profile-photo" src="profile.jpg" alt="Jesse Paul" 
+                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px; display: none;"
+                             onerror="this.style.display='none'; document.getElementById('photo-placeholder').style.display='block';">
+                        <div id="photo-placeholder" style="text-align: center; color: #999;">
+                            <div style="font-size: 3rem; margin-bottom: 0.5rem;">👤</div>
+                            <div>Profile Photo</div>
+                            <div style="font-size: 0.9rem; margin-top: 0.5rem;">(Save as profile.jpg)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research">
+            <h2>Research Interests</h2>
+            <div class="research-grid">
+                <div class="research-card">
+                    <h3>Numerical PDEs</h3>
+                    <p>Developing finite difference and finite element methods for fully nonlinear elliptic PDEs, 
+                    with emphasis on the Monge-Ampère equation and Hamilton-Jacobi-Bellman equations.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Probability-One Homotopy Method</h3>
+                    <p>Novel approach using the trivial projector onto E^G (group-invariant space) to compute 
+                    viscosity (Alexandrov) solutions to fully nonlinear Monge-Ampère equations. Implemented 
+                    in Julia using HomotopyContinuation.jl.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Isotypic Finite Elements (IFEM)</h3>
+                    <p>Symmetry-aware assembly process using intertwining maps to preserve Schur's lemma up to 
+                    the global system matrix. Achieves block diagonalization of global Jacobians. MATLAB implementation.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Applications</h3>
+                    <p>Optimal mass transport, antenna and reflector design, prescribed Gaussian curvature problems, 
+                    and geostrophic fluid dynamics.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Dissertation Research</h3>
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+                <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
+                    Narrow Stencil Finite Difference Methods for the Monge-Ampère Equation
+                </h4>
+                <p style="margin-bottom: 1rem;">
+                    <strong>Core Contribution:</strong> Development of a novel 17-point narrow stencil scheme for the fully 
+                    nonlinear Monge-Ampère equation. Building on work by Feng and Lewis, I prove admissibility, stability, 
+                    and convergence using a direct realization of the vanishing moment method.
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    <strong>Technical Innovation:</strong> The vanishing moment method allows for second-order accuracy while 
+                    maintaining the narrow stencil property, crucial for computational efficiency and boundary condition handling.
+                </p>
+                <p>
+                    <strong>Applications:</strong> Optimal mass transport, antenna and reflector design, prescribed Gaussian 
+                    curvature problems, and geostrophic fluid dynamics.
+                </p>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Additional Research Projects</h3>
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+                <p style="margin-bottom: 1rem; font-style: italic;">
+                    Beyond my dissertation, I have two ongoing papers applying representation theory to fully nonlinear PDEs:
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    <strong>1. Probability-One Homotopy (Julia):</strong> Implementation of a novel homotopy continuation method 
+                    using the trivial projector onto the group-invariant space E^G. This approach computes viscosity (Alexandrov) 
+                    solutions to the fully nonlinear Monge-Ampère equation using HomotopyContinuation.jl.
+                </p>
+                <p>
+                    <strong>2. Isotypic Finite Element Method (MATLAB):</strong> Development of symmetry-aware assembly 
+                    algorithms using intertwining maps. This method preserves Schur's lemma structure up to the global system 
+                    matrix, achieving block diagonalization of global Jacobians for efficient computation.
+                </p>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Research Visualizations</h3>
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+                <p style="margin-bottom: 1rem;">Visualizations from my representation theory research:</p>
+                
+                <!-- Gallery Grid -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <!-- D4 A1 Visualization -->
+                    <div style="text-align: center;">
+                        <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <img src="gallery_D4_A1_p5.png" alt="D4 A1 Subspace" 
+                                 style="width: 100%; height: auto; border-radius: 4px; display: block;"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="height: 200px; background: #f0f0f0; border-radius: 4px; display: none; 
+                                        align-items: center; justify-content: center; color: #999;">
+                                <div style="padding-top: 70px;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                                    <div style="font-size: 0.9rem;">A1 Subspace</div>
+                                    <div style="font-size: 0.8rem;">(Add gallery_D4_A1_p5.png)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem;">A1 Subspace (Fully Symmetric)</p>
+                    </div>
+                    
+                    <!-- D4 A2 Visualization -->
+                    <div style="text-align: center;">
+                        <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <img src="gallery_D4_A2_p5.png" alt="D4 A2 Subspace" 
+                                 style="width: 100%; height: auto; border-radius: 4px; display: block;"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="height: 200px; background: #f0f0f0; border-radius: 4px; display: none; 
+                                        align-items: center; justify-content: center; color: #999;">
+                                <div style="padding-top: 70px;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔲</div>
+                                    <div style="font-size: 0.9rem;">A2 Subspace</div>
+                                    <div style="font-size: 0.8rem;">(Add gallery_D4_A2_p5.png)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem;">A2 Subspace (Alternating)</p>
+                    </div>
+                    
+                    <!-- D4 B1 Visualization -->
+                    <div style="text-align: center;">
+                        <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <img src="gallery_D4_B1_p5.png" alt="D4 B1 Subspace" 
+                                 style="width: 100%; height: auto; border-radius: 4px; display: block;"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="height: 200px; background: #f0f0f0; border-radius: 4px; display: none; 
+                                        align-items: center; justify-content: center; color: #999;">
+                                <div style="padding-top: 70px;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📈</div>
+                                    <div style="font-size: 0.9rem;">B1 Subspace</div>
+                                    <div style="font-size: 0.8rem;">(Add gallery_D4_B1_p5.png)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem;">B1 Subspace</p>
+                    </div>
+                    
+                    <!-- D4 B2 Visualization -->
+                    <div style="text-align: center;">
+                        <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <img src="gallery_D4_B2_p5.png" alt="D4 B2 Subspace" 
+                                 style="width: 100%; height: auto; border-radius: 4px; display: block;"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="height: 200px; background: #f0f0f0; border-radius: 4px; display: none; 
+                                        align-items: center; justify-content: center; color: #999;">
+                                <div style="padding-top: 70px;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚡</div>
+                                    <div style="font-size: 0.9rem;">B2 Subspace</div>
+                                    <div style="font-size: 0.8rem;">(Add gallery_D4_B2_p5.png)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 0.5rem; font-size: 0.95rem;">B2 Subspace</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2>Publications & Papers</h2>
+            
+            <div class="publication">
+                <div class="publication-title">
+                    Narrow Stencil Finite Difference Methods for the Monge-Ampère Equation
+                </div>
+                <div class="publication-authors">Jesse Paul</div>
+                <div class="publication-venue">PhD Dissertation, UNCG</div>
+                <span class="publication-status">In Progress</span>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">
+                    Probability-One Homotopy Method for Viscosity Solutions using Group-Invariant Projectors
+                </div>
+                <div class="publication-authors">Jesse Paul</div>
+                <div class="publication-venue">Paper in preparation</div>
+                <span class="publication-status">In Progress</span>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">
+                    Isotypic Finite Element Assembly with Symmetry-Preserving Intertwining Maps
+                </div>
+                <div class="publication-authors">Jesse Paul</div>
+                <div class="publication-venue">Paper in preparation</div>
+                <span class="publication-status">In Progress</span>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">
+                    What is Microhistory? Archytas and the Origins of Plato's Philosopher Kings
+                </div>
+                <div class="publication-authors">Jesse Paul</div>
+                <div class="publication-venue">Social Evolution & History, Vol. 17 No. 2, pp. 64-82</div>
+                <span class="publication-status">Published - September 2018</span>
+            </div>
+        </section>
+
+        <section id="teaching">
+            <h2>Teaching Experience</h2>
+            
+            <h3>University of North Carolina at Greensboro</h3>
+            <p style="color: #666; margin-bottom: 1rem;">Graduate Research Assistant (August 2021 - Present)</p>
+            
+            <ul class="teaching-list">
+                <li>
+                    <span class="course-title">MAT 118: Business Algebra</span>
+                    <span class="course-term">Instructor (In-Person & Online)</span>
+                </li>
+                <li>
+                    <span class="course-title">MAT 196: Pre-Calculus</span>
+                    <span class="course-term">Instructor (In-Person Lecture)</span>
+                </li>
+                <li>
+                    <span class="course-title">Bio-Calculus</span>
+                    <span class="course-term">Lab/Recitation Leader</span>
+                </li>
+                <li>
+                    <span class="course-title">Bio-Pre-Calculus</span>
+                    <span class="course-term">Lab/Recitation Leader</span>
+                </li>
+            </ul>
+
+            <h3 style="margin-top: 2rem;">Grading & Tutoring</h3>
+            <p style="margin: 1rem 0;">
+                <strong>Grading:</strong> Calculus, Linear Algebra, Business Calculus<br>
+                <strong>Tutoring:</strong> Calculus I-III, Pre-Calculus, Business Calculus, Linear Algebra, 
+                Abstract Algebra, Discrete Mathematics, Business Algebra
+            </p>
+
+            <h3 style="margin-top: 2rem;">Previous Teaching</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 0.5rem;">• Upper School Mathematics, Porter-Gaud High School (2014-2016)</li>
+                <li>• Mountaintop Montessori Elementary (August 2012)</li>
+            </ul>
+        </section>
+
+        <section id="software">
+            <h2>Software & Technical Skills</h2>
+            
+            <h3>Programming Languages</h3>
+            <div class="skills-container">
+                <span class="skill-tag">MATLAB</span>
+                <span class="skill-tag">Julia</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">LaTeX</span>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Numerical Methods & Libraries</h3>
+            <div class="skills-container">
+                <span class="skill-tag">Finite Difference Methods</span>
+                <span class="skill-tag">Isotypic Finite Elements</span>
+                <span class="skill-tag">Vanishing Moment Methods</span>
+                <span class="skill-tag">HomotopyContinuation.jl</span>
+                <span class="skill-tag">Group Representation Theory</span>
+                <span class="skill-tag">Schur's Lemma Applications</span>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Research Software</h3>
+            <p style="margin-top: 1rem;">
+                I develop implementations of my numerical methods in both MATLAB (IFEM assembly) and Julia 
+                (probability-one homotopy). These will be available on my GitHub repository (coming soon).
+            </p>
+        </section>
+
+        <section id="errata">
+            <h2>Errata & Miscellaneous</h2>
+            
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--primary-color); margin-top: 0;">Mathematical Philosophy & Creative Writing</h3>
+                <p style="margin-bottom: 1rem;">
+                    Some random essays. Some serious, some fun.
+                </p>
+                
+                <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                    <h4 style="margin-top: 0; color: var(--text-dark);">
+                        What's the Point of Optimal Transport If We Can't Have Tea, Earl Grey, Hot?
+                    </h4>
+                    <p style="color: #666; font-style: italic; margin-bottom: 1rem;">
+                        Or: Why the Universe Might Be Playing With Its Food
+                    </p>
+                    <p style="margin-bottom: 1rem;">
+                        A philosophical essay exploring the connection between the Monge-Ampère equation, 
+                        optimal transport theory, and the possibility of Star Trek-style matter replicators.(Inspired by What's the point if we can't have fun) 
+                        This piece examines how the mathematics of weak solutions to nonlinear PDEs might 
+                        reveal something profound about the playful nature of reality itself.
+                    </p>
+                    <a href="WhatsPointTeaEarlGreyHot.pdf" 
+                       style="background: var(--primary-color); color: white; padding: 0.5rem 1rem; 
+                              text-decoration: none; border-radius: 4px; display: inline-block;">
+                        📄 Read Essay (PDF)
+                    </a>
+                </div>
+            </div>
+            
+            <p style="color: #666; font-style: italic;">
+                "The fact that we need 'weak' solutions—solutions that embrace discontinuity, that work 
+                with discreteness rather than against it—tells us that the universe itself is more 
+                flexible than our mathematics traditionally assumed."
+            </p>
+        </section>
+
+        <section id="cv">
+            <h2>Curriculum Vitae</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Expected 2026</div>
+                    <div><strong>PhD in Computational Mathematics</strong><br>
+                    University of North Carolina at Greensboro</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div><strong>MA in Mathematics</strong><br>
+                    University of North Carolina at Greensboro</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2018</div>
+                    <div><strong>BS in Mathematics</strong><br>
+                    Virginia Tech</div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 2rem;">
+                <a href="#" onclick="alert('PDF CV will be uploaded soon')" 
+                   style="background: var(--primary-color); color: white; padding: 0.75rem 1.5rem; 
+                          text-decoration: none; border-radius: 4px; display: inline-block;">
+                    Download Full CV (PDF)
+                </a>
+            </p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>I am actively seeking postdoctoral positions and tenure-track positions beginning Fall 2026. 
+            Please feel free to reach out regarding research collaborations or opportunities.</p>
+            <div style="margin-top: 1.5rem; background: var(--bg-light); padding: 1.5rem; border-radius: 8px;">
+                <p><strong>Email:</strong> jmpaul@uncg.edu</p>
+                <p><strong>Phone:</strong> 434-260-4115</p>
+                <p><strong>Office:</strong> Department of Mathematics and Statistics<br>
+                University of North Carolina at Greensboro<br>
+                Greensboro, NC 27402</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jesse Paul. Last updated: September 2025</p>
+        <p><a href="mailto:jmpaul@uncg.edu">Contact Me</a></p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add active state to navigation
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.style.fontWeight = '500';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.fontWeight = '700';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
